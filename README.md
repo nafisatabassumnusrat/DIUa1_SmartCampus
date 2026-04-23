@@ -1,1 +1,0 @@
-# DIUa1_SmartCampus
