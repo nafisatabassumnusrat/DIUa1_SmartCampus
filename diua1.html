@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DIUa1 — Smart Academic Ecosystem</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dim: #7A6030;
+    --charcoal: #0E0E10;
+    --slate: #1A1A20;
+    --slate-mid: #242430;
+    --slate-light: #2E2E3C;
+    --text: #E8E4DC;
+    --text-dim: #9A9488;
+    --accent: #4CC9A8;
+    --accent2: #C94C7A;
+    --border: rgba(201,168,76,0.2);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--charcoal);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    line-height: 1.7;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 80% 80%, rgba(76,201,168,0.05) 0%, transparent 60%),
+                var(--charcoal);
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    border: 1px solid var(--border);
+    padding: 0.4em 1.2em;
+    border-radius: 2px;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5rem, 18vw, 14rem);
+    letter-spacing: 0.05em;
+    line-height: 0.9;
+    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dim) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--text-dim);
+    margin-top: 1.5rem;
+    max-width: 600px;
+    animation: fadeUp 0.8s 0.25s ease both;
+    font-weight: 300;
+  }
+
+  .hero-sub strong {
+    color: var(--gold-light);
+    font-weight: 500;
+  }
+
+  .hero-divider {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 2.5rem auto;
+    animation: fadeUp 0.8s 0.35s ease both;
+  }
+
+  .hero-pillars {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeUp 0.8s 0.45s ease both;
+  }
+
+  .pillar-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    padding: 0.5em 1em;
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold);
+    background: rgba(201,168,76,0.05);
+  }
+
+  /* ── SCROLL INDICATOR ── */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    animation: fadeUp 1s 0.8s ease both;
+  }
+  .scroll-hint span {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+  }
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(var(--gold), transparent);
+    animation: scrollPulse 2s infinite;
+  }
+
+  /* ── EXEC SUMMARY ── */
+  .exec {
+    background: var(--slate);
+    padding: 6rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .exec::before {
+    content: 'OBE';
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20rem;
+    color: rgba(201,168,76,0.03);
+    position: absolute;
+    right: -4rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.6rem, 4vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+
+  .exec-body {
+    font-size: 1.05rem;
+    color: var(--text-dim);
+    max-width: 700px;
+    line-height: 1.9;
+  }
+
+  .exec-body + .exec-body { margin-top: 1rem; }
+
+  .exec-highlight {
+    display: inline-block;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* ── MODULE CARDS ── */
+  .modules-section {
+    padding: 5rem 2rem;
+    background: var(--charcoal);
+  }
+
+  .modules-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .modules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    gap: 1.5px;
+    background: var(--border);
+  }
+
+  .module-card {
+    background: var(--charcoal);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .module-card:hover {
+    background: var(--slate);
+  }
+
+  .module-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gold);
+    transition: width 0.4s ease;
+  }
+
+  .module-card:hover::after { width: 100%; }
+
+  .module-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    color: rgba(201,168,76,0.12);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    transition: color 0.3s;
+  }
+
+  .module-card:hover .module-num { color: rgba(201,168,76,0.22); }
+
+  .module-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--gold-light);
+    margin-bottom: 0.5rem;
+  }
+
+  .module-desc {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  .module-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+  }
+
+  /* ── FEATURE LIST ── */
+  .feature-section {
+    background: var(--slate);
+    padding: 5rem 2rem;
+  }
+
+  .feature-section + .feature-section {
+    background: var(--charcoal);
+  }
+
+  .feature-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  @media (max-width: 768px) {
+    .feature-layout { grid-template-columns: 1fr; gap: 2rem; }
+  }
+
+  .feature-sticky {
+    position: sticky;
+    top: 4rem;
+  }
+
+  .feature-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .feature-item {
+    padding: 1.4rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .feature-bullet {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    margin-top: 0.6rem;
+    flex-shrink: 0;
+  }
+
+  .feature-name {
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+  }
+
+  .feature-text {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  /* ── OBE SECTION ── */
+  .obe-section {
+    padding: 5rem 2rem;
+    background: linear-gradient(180deg, var(--charcoal) 0%, var(--slate) 100%);
+  }
+
+  .obe-pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    margin-top: 3rem;
+    background: var(--border);
+  }
+
+  @media (max-width: 700px) {
+    .obe-pillars { grid-template-columns: 1fr; }
+  }
+
+  .obe-pillar {
+    background: var(--charcoal);
+    padding: 2.5rem 2rem;
+  }
+
+  .obe-pillar-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .obe-pillar-title::before {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .obe-item {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .obe-item::before {
+    content: '→';
+    color: var(--gold-dim);
+    font-size: 0.75rem;
+  }
+
+  /* ── TECH STACK ── */
+  .tech-section {
+    padding: 5rem 2rem;
+    background: var(--slate);
+  }
+
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    margin-top: 3rem;
+  }
+
+  .tech-block {
+    background: var(--slate);
+    padding: 2rem;
+    transition: background 0.3s;
+  }
+
+  .tech-block:hover { background: var(--slate-light); }
+
+  .tech-layer {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: var(--gold-dim);
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+  }
+
+  .tech-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+  }
+
+  .tech-detail {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--charcoal);
+    border-top: 1px solid var(--border);
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+
+  .footer-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold-dim));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  .footer-tagline {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    max-width: 500px;
+    margin: 0 auto 2rem;
+  }
+
+  .footer-three {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-pillar {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    position: relative;
+    padding: 0.5em 0;
+  }
+
+  .footer-pillar::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 1px;
+    background: var(--gold);
+    opacity: 0.3;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; }
+    50%       { opacity: 1; }
+  }
+
+  /* ── HIGHLIGHT CHIP ── */
+  .chip {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    border: 1px solid rgba(76,201,168,0.3);
+    padding: 0.2em 0.7em;
+    border-radius: 2px;
+    margin: 0.2em;
+    background: rgba(76,201,168,0.05);
+  }
+
+  .chip.gold {
+    color: var(--gold);
+    border-color: rgba(201,168,76,0.3);
+    background: rgba(201,168,76,0.05);
+  }
+
+  /* ── QUOTE BLOCK ── */
+  .quote-block {
+    border-left: 3px solid var(--gold);
+    padding: 1.5rem 2rem;
+    margin: 3rem 0;
+    background: rgba(201,168,76,0.04);
+  }
+
+  .quote-text {
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  .quote-sub {
+    font-size: 0.8rem;
+    color: var(--gold-dim);
+    margin-top: 0.5rem;
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── NUMBER STATS ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5px;
+    background: var(--border);
+    margin: 3rem 0;
+  }
+
+  .stat-cell {
+    background: var(--charcoal);
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-top: 0.3rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">PROJECT PROPOSAL — SMART CAMPUS FRAMEWORK</div>
+  <div class="hero-title">DIUa1</div>
+  <div class="hero-divider"></div>
+  <p class="hero-sub">
+    <strong>Autonomous AI-Agent and Blockchain-Based</strong><br>
+    An Integrated Campus Framework
+  </p>
+  <div style="margin-top: 2.5rem; animation: fadeUp 0.8s 0.55s ease both;">
+    <div class="hero-pillars">
+      <span class="pillar-tag">COMPUTER VISION</span>
+      <span class="pillar-tag">NLP &amp; LLM</span>
+      <span class="pillar-tag">BLOCKCHAIN</span>
+      <span class="pillar-tag">OBE FRAMEWORK</span>
+      <span class="pillar-tag">IOT</span>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>SCROLL</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- EXECUTIVE SUMMARY -->
+<section class="exec">
+  <div class="container">
+    <div class="section-label">01 — EXECUTIVE SUMMARY</div>
+    <h2 class="section-title">A Fully Automated<br>Digital Campus</h2>
+
+    <div class="quote-block">
+      <p class="quote-text">DIUa1 is not an ordinary management system. It is a fully automated digital campus that unifies Computer Vision, Natural Language Processing, and Blockchain technology to transform the conventional challenges of university life into a data-driven smart campus experience.</p>
+      <div class="quote-sub">EXECUTIVE VISION</div>
+    </div>
+
+    <p class="exec-body">
+      The core goal of this system is to make every day-to-day university task <span class="exec-highlight">simpler, faster, and fully automated</span> for both faculty and students — so teachers spend more time teaching, and students spend more time learning.
+    </p>
+    <p class="exec-body" style="margin-top:1rem">
+      At the heart of the entire ecosystem is <span class="exec-highlight">OBE (Outcome-Based Education)</span>. All other modules — admissions, transport, finance, and security — serve as the supporting pillars of this ecosystem.
+    </p>
+
+    <div class="stats-row">
+      <div class="stat-cell">
+        <div class="stat-num">12+</div>
+        <div class="stat-label">Integrated Modules</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Core Pillars</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">AI</div>
+        <div class="stat-label">Driven Decisions</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">360°</div>
+        <div class="stat-label">Campus Coverage</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULES OVERVIEW -->
+<section class="modules-section">
+  <div class="container">
+    <div class="modules-header">
+      <div class="section-label">02 — MODULE OVERVIEW</div>
+      <h2 class="section-title">12 Integrated Systems</h2>
+    </div>
+    <div class="modules-grid">
+
+      <div class="module-card">
+        <div class="module-num">02</div>
+        <div class="module-icon">🎓</div>
+        <div class="module-title">Smart Admission System</div>
+        <div class="module-desc">AI OCR-based automatic form fill, Career Architect quiz, 3D campus tour, and cheat-free entrance examination.</div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-num">03</div>
+        <div class="module-icon">👨‍🏫</div>
+        <div class="module-title">Automated Teacher Portal</div>
+        <div class="module-desc">Face recognition attendance, visual mark recognition, voice-to-Excel grading, and AI grading assistant.</div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-num">04</div>
+        <div class="module-icon">📊</div>
+        <div class="module-title">OBE &amp; Academic Analytics</div>
+        <div class="module-desc">Outcome-Based Education dashboard, failure prediction model, question analysis, and performance reports.</div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-num">05</div>
+        <div class="module-icon">🧑‍💻</div>
+        <div class="module-title">Smart Student Portal</div>
+        <div class="module-desc">Smart cover page generator, intelligent library, daily feedback system, and career guidance roadmap.</div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-num">06</div>
+        <div class="module-icon">🔗</div>
+        <div class="module-title">Nexus Hub</div>
+        <div class="module-desc">Official directory, student club pages, verified social feed, and personalized notice board.</div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-num">07</div>
+        <div class="module-icon">📰</div>
+        <div class="module-title">Local News Board</div>
+        <div class="module-desc">AI agent-driven real-time campus updates, local area news, and personalized push notifications.</div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-num">08</div>
+        <div class="module-icon">🏪</div>
+        <div class="module-title">Campus Concierge</div>
+        <div class="module-desc">Gig economy platform, restaurant directory, unified chatbot, and cafeteria ordering system.</div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-num">09</div>
+        <div class="module-icon">💳</div>
+        <div class="module-title">Intelligent Finance</div>
+        <div class="module-desc">Credit score, AI-based EMI system, blockchain ledger, and real-time expense notifications for parents.</div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-num">10</div>
+        <div class="module-icon">🚌</div>
+        <div class="module-title">Smart Transport</div>
+        <div class="module-desc">App-based seat booking, dynamic TOTP QR codes, live GPS tracking, and automated parental notifications.</div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-num">11</div>
+        <div class="module-icon">👨‍👩‍👧</div>
+        <div class="module-title">Parent Portal</div>
+        <div class="module-desc">Real-time academic results, financial oversight, live bus location tracking, and local area updates.</div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-num">12</div>
+        <div class="module-icon">🏛️</div>
+        <div class="module-title">Institutional Governance</div>
+        <div class="module-desc">AI surveillance, decision support system, sentiment analysis, and IoT energy management.</div>
+      </div>
+
+      <div class="module-card" style="background: var(--slate);">
+        <div class="module-num" style="color: rgba(201,168,76,0.25);">13</div>
+        <div class="module-icon">⚙️</div>
+        <div class="module-title">Technical Architecture</div>
+        <div class="module-desc">React/Next.js frontend, FastAPI backend, blockchain security, and LLM-powered core.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ADMISSION SYSTEM -->
+<section class="feature-section">
+  <div class="container">
+    <div class="feature-layout">
+      <div class="feature-sticky">
+        <div class="section-label">02 — ADMISSION</div>
+        <h2 class="section-title">Smart Admission System</h2>
+        <p style="color:var(--text-dim); font-size:0.9rem; margin-top:1rem; line-height:1.8">
+          A seamless and modern admission process designed for incoming students.
+        </p>
+        <div style="margin-top:1.5rem">
+          <span class="chip gold">Tesseract OCR</span>
+          <span class="chip gold">Google Vision AI</span>
+          <span class="chip gold">RAG + LLM</span>
+          <span class="chip gold">Three.js WebGL</span>
+          <span class="chip gold">Blockchain</span>
+        </div>
+      </div>
+      <ul class="feature-list">
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Auto Admission Form Fill-Up</div>
+            <div class="feature-text">Upload a photo of your National ID or certificate and within 2–3 seconds, your name, roll number, GPA, and date of birth are automatically populated into the form.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">AI Career Architect</div>
+            <div class="feature-text">A smart multi-step quiz powered by RAG architecture recommends the most suitable department. A career flowchart is displayed alongside every suggestion.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Virtual Campus Tour</div>
+            <div class="feature-text">An interactive 3D campus map built on a WebGL-powered Three.js engine. Clicking any building reveals detailed information about that department.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Cheat-Free Entrance Examination</div>
+            <div class="feature-text">Powered by the Page Visibility API and AI proctoring. Switching tabs or minimising the screen sends a log to the server and displays a red warning on screen.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Blockchain Payment Ledger</div>
+            <div class="feature-text">Every transaction is hashed and permanently stored on a private blockchain. A green "Verified Block" tick mark confirms successful payment.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Smart Hall Management</div>
+            <div class="feature-text">A real-time seat availability dashboard and a fully digital room allotment system for residential halls.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- TEACHER PORTAL -->
+<section class="feature-section" style="background: var(--charcoal)">
+  <div class="container">
+    <div class="feature-layout">
+      <div class="feature-sticky">
+        <div class="section-label">03 — TEACHER PORTAL</div>
+        <h2 class="section-title">Automated Teacher Portal</h2>
+        <p style="color:var(--text-dim); font-size:0.9rem; margin-top:1rem; line-height:1.8">
+          Reducing teachers' administrative burden so they can focus on academic quality.
+        </p>
+        <div style="margin-top:1.5rem">
+          <span class="chip">Face Recognition</span>
+          <span class="chip">Speech-to-Text</span>
+          <span class="chip">NLP Grading</span>
+          <span class="chip">XGBoost KPI</span>
+        </div>
+      </div>
+      <ul class="feature-list">
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">AI-Vision Passive Attendance</div>
+            <div class="feature-text">In-class cameras use face recognition to automatically sync attendance to the portal. No manual action is required from the teacher.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Visual Mark Recognition</div>
+            <div class="feature-text">Simply hold answer scripts in front of the camera. The system reads the Student ID and handwritten marks, then instantly populates the grade sheet in real time.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Voice-to-Excel Grading Agent</div>
+            <div class="feature-text">The teacher simply calls out marks — "15, 18, 12, 20" — and the agent automatically enters them against the correct roll numbers in Excel. Commands like "skip" and "correct" are also supported.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Class Comprehension Dashboard</div>
+            <div class="feature-text">Based on student feedback, the dashboard shows how well each topic was understood, categorised into three levels. It also provides suggestions for the next class.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Voice Command System</div>
+            <div class="feature-text">Submit leave applications, create notices, generate reports, and reschedule classes — all by voice command alone.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">KPI Tracking &amp; Auto Reward</div>
+            <div class="feature-text">A regression model analyses long-term performance patterns and assigns ratings of "Excellent", "Average", or "Needs Improvement". Human approval remains mandatory for any formal escalation.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Mental Health Support</div>
+            <div class="feature-text">An LLM-powered chatbot that responds with empathy. A built-in safety classifier forwards crisis situations to a human counsellor.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- OBE SECTION -->
+<section class="obe-section">
+  <div class="container">
+    <div class="section-label">04 — OBE FRAMEWORK</div>
+    <h2 class="section-title">Outcome-Based Education</h2>
+    <p style="color:var(--text-dim); max-width:650px; font-size:0.95rem; margin-top:1rem; line-height:1.8">
+      The core philosophy of OBE is not merely what has been taught, but what the student has actually learned and how much they have truly achieved.
+    </p>
+
+    <div class="obe-pillars">
+      <div class="obe-pillar">
+        <div class="obe-pillar-title">TEACHING &amp; LEARNING</div>
+        <div class="obe-item">Self Service System</div>
+        <div class="obe-item">Credit System</div>
+        <div class="obe-item">Attendance System</div>
+        <div class="obe-item">Student Evaluation</div>
+        <div class="obe-item">Performance Auto Generation</div>
+      </div>
+      <div class="obe-pillar">
+        <div class="obe-pillar-title">ASSESSMENT &amp; EVALUATION</div>
+        <div class="obe-item">KPI Tracking</div>
+        <div class="obe-item">Attendance Effect Analysis</div>
+        <div class="obe-item">Teacher Activity Analysis</div>
+        <div class="obe-item">Performance Report</div>
+        <div class="obe-item">OBE Analytics Dashboard</div>
+      </div>
+      <div class="obe-pillar">
+        <div class="obe-pillar-title">ADMINISTRATIVE &amp; SUPPORT</div>
+        <div class="obe-item">Teacher Request System</div>
+        <div class="obe-item">Leave System</div>
+        <div class="obe-item">Auto Notice System</div>
+        <div class="obe-item">Club Activities</div>
+        <div class="obe-item">Mental Peace Support</div>
+      </div>
+    </div>
+
+    <div style="margin-top:3rem; display:grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap:1.5rem;">
+      <div style="background:var(--slate-mid); padding:1.8rem; border-left: 3px solid var(--accent)">
+        <div style="font-family:'Space Mono',monospace; font-size:0.62rem; color:var(--accent); letter-spacing:0.2em; margin-bottom:0.8rem">FAILURE PREDICTION</div>
+        <div style="font-size:0.88rem; color:var(--text-dim); line-height:1.8">A Random Forest / XGBoost model analyses attendance, grades, and submission rates to proactively identify at-risk students before it is too late.</div>
+      </div>
+      <div style="background:var(--slate-mid); padding:1.8rem; border-left: 3px solid var(--gold)">
+        <div style="font-family:'Space Mono',monospace; font-size:0.62rem; color:var(--gold); letter-spacing:0.2em; margin-bottom:0.8rem">QUESTION ANALYTICS</div>
+        <div style="font-size:0.88rem; color:var(--text-dim); line-height:1.8">Classification and predictive models analyse question paper difficulty and teaching quality, displaying red warnings in the AI Insights panel whenever standards fall below threshold.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINANCE & TRANSPORT -->
+<section class="feature-section" style="background: var(--slate)">
+  <div class="container">
+    <div class="feature-layout">
+      <div class="feature-sticky">
+        <div class="section-label">09–10 — FINANCE &amp; TRANSPORT</div>
+        <h2 class="section-title">Transparent Finance &amp; Safe Commuting</h2>
+        <p style="color:var(--text-dim); font-size:0.9rem; margin-top:1rem; line-height:1.8">
+          Blockchain-backed transactions and a real-time tracking system.
+        </p>
+        <div style="margin-top:1.5rem">
+          <span class="chip">Hyperledger</span>
+          <span class="chip">Smart Contract</span>
+          <span class="chip gold">TOTP QR</span>
+          <span class="chip gold">WebSocket GPS</span>
+        </div>
+      </div>
+      <ul class="feature-list">
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Financial Credit Score</div>
+            <div class="feature-text">An AI model analyses payment timing and displays a score in a speedometer-style ring. A higher score unlocks access to EMI (instalment) payment facilities.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Blockchain Ledger</div>
+            <div class="feature-text">Every transaction is saved to a private blockchain via smart contracts. The system is completely tamper-proof and free from any possibility of fraud.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Bilingual Finance Chatbot</div>
+            <div class="feature-text">Type a query in any language — for example, "When is my last payment due?" — and receive an answer within a second.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Dynamic TOTP QR Bus Entry</div>
+            <div class="feature-text">A QR code that regenerates every 30 seconds. The TOTP algorithm syncs with the student's ID to produce a fresh, secure QR code for each boarding.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Live GPS Tracking</div>
+            <div class="feature-text">Live location data is streamed from the GPS module to the server via WebSocket. The bus icon moves in real time on the map displayed in the app.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Automated Parental Notification</div>
+            <div class="feature-text">As soon as the QR code is scanned, a text message with a tracking link is sent to the parent's phone — for example: "Nafisa boarded Bus Surjo at 8:00 AM." A notification is also sent when the student alights.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- STUDENT PORTAL -->
+<section class="feature-section" style="background: var(--charcoal)">
+  <div class="container">
+    <div class="feature-layout">
+      <div class="feature-sticky">
+        <div class="section-label">05 — STUDENT PORTAL</div>
+        <h2 class="section-title">Smart Student Portal</h2>
+        <p style="color:var(--text-dim); font-size:0.9rem; margin-top:1rem; line-height:1.8">
+          A complete digital hub for students' everyday academic needs and career guidance.
+        </p>
+        <div style="margin-top:1.5rem">
+          <span class="chip gold">AI Assistant</span>
+          <span class="chip gold">Smart Notifications</span>
+          <span class="chip gold">Career Roadmap</span>
+          <span class="chip gold">Library RAG</span>
+        </div>
+      </div>
+      <ul class="feature-list">
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Smart Cover Page Generator</div>
+            <div class="feature-text">Upload a photo of an assignment and a professional cover page is instantly generated using the student's profile data — name, ID, and semester — with no manual input required.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Intelligent Library &amp; Research Hub</div>
+            <div class="feature-text">Books, e-books, and research papers are recommended based on the student's curriculum and current semester. A "Recommended for You" slider is displayed on the dashboard.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Daily Learning Feedback Dashboard</div>
+            <div class="feature-text">After each class, students can rate their comprehension — "Understood well", "Partially understood", or "Did not understand at all". This feedback is immediately sent to the teacher's class comprehension dashboard.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Career &amp; Job Guidance</div>
+            <div class="feature-text">Detailed guidance tailored to specific job sectors. A complete career roadmap shows students from each department the various paths available to them.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Smart Routine &amp; Notifications</div>
+            <div class="feature-text">Automatic notifications are sent the day before an exam or 10 minutes before a class. Lab sessions, quiz dates, and final exam schedules are updated automatically.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">AI Assistant</div>
+            <div class="feature-text">Instant assistance for university policies, hall information, and any academic query. Automatic replies and solutions are provided for all general questions.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- NEXUS HUB + CONCIERGE + REVIEWS -->
+<section class="feature-section" style="background: var(--slate)">
+  <div class="container">
+    <div class="feature-layout">
+      <div class="feature-sticky">
+        <div class="section-label">06–08 — NEXUS HUB &amp; COMMUNITY</div>
+        <h2 class="section-title">Clubs, Concierge &amp; Review System</h2>
+        <p style="color:var(--text-dim); font-size:0.9rem; margin-top:1rem; line-height:1.8">
+          The university's social presence, community services, and staff review system — all in one place.
+        </p>
+        <div style="margin-top:1.5rem">
+          <span class="chip">NLP Sentiment</span>
+          <span class="chip">Gig Economy</span>
+          <span class="chip gold">GPS Directory</span>
+          <span class="chip gold">Verified Feed</span>
+        </div>
+      </div>
+      <ul class="feature-list">
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Student Club Directory</div>
+            <div class="feature-text">An interactive directory covering all clubs including the Robotics Club, Computer Programming Club, and Cultural Club. Each club's page includes links to Facebook, LinkedIn, and Discord, a mission statement, a membership link, and announcements for upcoming events.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Verified Social Feed</div>
+            <div class="feature-text">A centralised link-tree of the university's official Threads, LinkedIn, and Facebook pages. Students receive information only from trusted sources, eliminating the spread of rumours.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Campus Assist Gig Economy</div>
+            <div class="feature-text">Using their verified ID, students can help one another with small tasks — such as deliveries or fetching items. Students earn an income while receiving safe services within a familiar environment.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Nearby Restaurant Directory</div>
+            <div class="feature-text">A curated list of eateries near campus, complete with ratings, reviews, and GPS locations. Includes food and cafeteria order tracking and price monitoring.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">University Staff Review System</div>
+            <div class="feature-text">Students can review office staff, canteen workers, librarians, and security guards. An NLP Sentiment Analysis model processes the reviews and displays results on the admin dashboard — for example: "Library Staff Karim: 90% Positive Feedback."</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">AI-Powered Smart Notice Board</div>
+            <div class="feature-text">Personalised push notifications based on each student's profile and interests. A CSE student receives notifications about CSE seminars; a BBA student receives updates about business competitions.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Local News &amp; Campus Update Board</div>
+            <div class="feature-text">An AI agent automatically collects relevant news and sends it via push notification — for example: "There will be no electricity from 6 PM tonight" or "The road ahead is closed due to a procession." Students can filter updates by their area and interests.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PARENT PORTAL -->
+<section class="feature-section" style="background: var(--charcoal)">
+  <div class="container">
+    <div class="feature-layout">
+      <div class="feature-sticky">
+        <div class="section-label">11 — PARENT PORTAL</div>
+        <h2 class="section-title">Comprehensive Parent Portal</h2>
+        <p style="color:var(--text-dim); font-size:0.9rem; margin-top:1rem; line-height:1.8">
+          A fully dedicated portal for parents — all information about their child in one place.
+        </p>
+        <div style="margin-top:1.5rem">
+          <span class="chip gold">Real-Time Updates</span>
+          <span class="chip gold">Blockchain Verified</span>
+          <span class="chip gold">Live GPS</span>
+          <span class="chip gold">SMS Alerts</span>
+        </div>
+      </div>
+      <ul class="feature-list">
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Academic Oversight</div>
+            <div class="feature-text">View exam results, grade trends, and attendance records in real time. Subjects in which the child is struggling are displayed in graphical form.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Class Faculty Directory</div>
+            <div class="feature-text">The name, photo, and contact details of the child's class teacher and every subject teacher are accessible directly from the portal.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Financial Oversight &amp; Fee Management</div>
+            <div class="feature-text">Real-time balance, upcoming payment dates, and amounts can be viewed in advance. A verified payment history drawn from the blockchain ledger is available, along with real-time spending notifications for the child.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Transport Monitoring</div>
+            <div class="feature-text">View the live location of the bus. An instant SMS notification with a timestamp and GPS location is sent whenever the child boards or alights.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Local Area Updates</div>
+            <div class="feature-text">Relevant news from around the campus — road closures, power outages, or special events. Parents can plan their child's commute well in advance.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- GOVERNANCE & SECURITY -->
+<section class="feature-section" style="background: var(--slate)">
+  <div class="container">
+    <div class="feature-layout">
+      <div class="feature-sticky">
+        <div class="section-label">12 — GOVERNANCE &amp; SECURITY</div>
+        <h2 class="section-title">Institutional Governance &amp; Campus Security</h2>
+        <p style="color:var(--text-dim); font-size:0.9rem; margin-top:1rem; line-height:1.8">
+          Strengthening administrative capability and ensuring the overall safety of the campus.
+        </p>
+        <div style="margin-top:1.5rem">
+          <span class="chip">Computer Vision CCTV</span>
+          <span class="chip">Forecasting Model</span>
+          <span class="chip gold">IoT Energy</span>
+          <span class="chip gold">Blockchain Proof</span>
+        </div>
+      </div>
+      <ul class="feature-list">
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Decision Support System</div>
+            <div class="feature-text">Forecasting models are used to generate budget plans and admission forecasts for the upcoming semester, helping the administration make well-informed, data-driven decisions.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">AI Surveillance</div>
+            <div class="feature-text">A Computer Vision model analyses the CCTV feed to detect crowds or physical altercations. Upon detecting anything unusual, a red bounding box is drawn around the area and an "Alert: Crowd Detected" notification is triggered. Evidence of this surveillance is stored on the blockchain.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">AI Sentiment Analysis</div>
+            <div class="feature-text">NLP processes student reviews to automatically analyse and generate reports on the quality of staff, drivers, and cafeteria services — all presented on the admin dashboard.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Smart Energy Control</div>
+            <div class="feature-text">An AI predictive model uses data from IoT motion and temperature sensors to make decisions. When a classroom is empty, lights and air conditioning are switched off automatically. The Energy Dashboard shows the total units of electricity saved each day.</div>
+          </div>
+        </li>
+        <li class="feature-item">
+          <div class="feature-bullet"></div>
+          <div>
+            <div class="feature-name">Smart Expense Transparency Dashboard</div>
+            <div class="feature-text">A visible dashboard showing exactly where and how much of the university's funds are being spent — completely transparent to both the administration and students.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section class="tech-section">
+  <div class="container">
+    <div class="section-label">13 — TECHNICAL ARCHITECTURE</div>
+    <h2 class="section-title">Technology Layers</h2>
+    <p style="color:var(--text-dim); max-width:600px; font-size:0.9rem; margin-top:1rem; line-height:1.8">
+      Built on a Minimalist Swiss Design theme in slate-charcoal and champagne gold — featuring a React/Next.js frontend, FastAPI backend, and a multi-layered AI core.
+    </p>
+
+    <div class="tech-grid">
+      <div class="tech-block">
+        <div class="tech-layer">FRONTEND</div>
+        <div class="tech-name">React.js + Next.js</div>
+        <div class="tech-detail">GSAP animations, Three.js 3D rendering, Chart.js / Recharts data visualisation.</div>
+      </div>
+      <div class="tech-block">
+        <div class="tech-layer">BACKEND</div>
+        <div class="tech-name">FastAPI + Python</div>
+        <div class="tech-detail">REST API with role-based access control. Optimised for high-concurrency AI task processing.</div>
+      </div>
+      <div class="tech-block">
+        <div class="tech-layer">VISION</div>
+        <div class="tech-name">OpenCV + Tesseract</div>
+        <div class="tech-detail">Face recognition, OCR, visual mark recognition, and CCTV feed analysis.</div>
+      </div>
+      <div class="tech-block">
+        <div class="tech-layer">AI CORE</div>
+        <div class="tech-name">LangChain + XGBoost</div>
+        <div class="tech-detail">LlamaIndex RAG architecture and Scikit-Learn prediction models.</div>
+      </div>
+      <div class="tech-block">
+        <div class="tech-layer">DATABASE</div>
+        <div class="tech-name">PostgreSQL + Firebase</div>
+        <div class="tech-detail">MongoDB for real-time data. Pinecone / ChromaDB for vector storage.</div>
+      </div>
+      <div class="tech-block">
+        <div class="tech-layer">REALTIME</div>
+        <div class="tech-name">WebSocket + SMS</div>
+        <div class="tech-detail">Voice commands and live tracking. Firebase / SMS Gateway for parental notifications.</div>
+      </div>
+      <div class="tech-block">
+        <div class="tech-layer">SECURITY</div>
+        <div class="tech-name">Hyperledger / Ethereum</div>
+        <div class="tech-detail">Private blockchain for financial transactions. OAuth 2.0 and JWT authentication.</div>
+      </div>
+      <div class="tech-block">
+        <div class="tech-layer">IOT</div>
+        <div class="tech-name">Motion + Temp Sensors</div>
+        <div class="tech-detail">AI predictive model. Lights and AC switch off automatically when a classroom is empty. Energy Dashboard for monitoring.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-title">DIUa1</div>
+  <p class="footer-tagline">
+    Administrative transparency, academic excellence, and the holistic well-being of students — DIUa1 stands on these three pillars as an ideal model of a smart campus.
+  </p>
+  <div class="footer-three">
+    <span class="footer-pillar">Administrative Transparency</span>
+    <span class="footer-pillar">Academic Excellence</span>
+    <span class="footer-pillar">Student Well-Being</span>
+  </div>
+  <p style="margin-top:3rem; font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:0.2em; color:var(--text-dim)">
+    SMART ACADEMIC ECOSYSTEM — AUTONOMOUS AI + BLOCKCHAIN
+  </p>
+</footer>
+
+</body>
+</html>
